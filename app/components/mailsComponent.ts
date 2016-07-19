@@ -1,5 +1,6 @@
 
 import {Component} from "angular2/core";
+import {MailService} from "./mailService";
 @Component({
     templateUrl: "app/components/mailsComponents.html"
 })
@@ -7,9 +8,7 @@ export class MailsComponent{
     public selectedMailItem: any;
     public mails: Array<any>=
     [
-            {title: "mail 1", sender:"tuanhoang@gmail.com", date:"1/1/1"},
-             {title: "mail 2", sender:"tuanhaong@yahoo.com", date:"1/1/1"}
-
+           
     ];
     public onMailClicked (mailItem :any)
     {
@@ -17,6 +16,11 @@ export class MailsComponent{
         console.log(mailItem.title);
         
     }
-    
+    constructor (mailService:MailService)
+    {
+
+        //let mailService:MailService = new MailService();   
+        this.mails=mailService.getMails();     
+    }
    
 }
