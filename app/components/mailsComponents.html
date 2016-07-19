@@ -9,24 +9,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Article 1</td>
-                        <td>Description 1</td>
-                        <td>Author 1</td>
+                    <tr (click)="onMailClicked(mail);" *ngFor="let mail of mails">
+                        <td>{{mail.title}}</td>
+                        <td>{{mail.sender}}</td>
+                        <td>{{mail.date}}</td>
                         <td><a href="/email-detail">Detail</a></td>
                     </tr>
-                    <tr>
-                        <td>Article 2</td>
-                        <td>Description 2</td>
-                        <td>Author 2</td>
-                        <td><a href="/article-detail.html">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td>Article 3</td>
-                        <td>Description 3</td>
-                        <td>Author 3</td>
-                        <td><a href="/article-detail.html">Detail</a></td>
-                    </tr>
+                   
                 <tbody>
             </table>
-            <div>
+<div *ngIf="!!selectedMailItem">
+    <input [(ngModel)]="selectedMailItem.title"/>
+</div>
+
+   <div>
