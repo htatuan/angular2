@@ -1,26 +1,24 @@
 
 import {Component} from "angular2/core";
 import {MailService} from "./mailService";
+import {Router} from "angular2/router";
 @Component({
     templateUrl: "app/components/mailsComponents.html"
 })
-export class MailsComponent{
+export class MailsComponent {
     public selectedMailItem: any;
-    public mails: Array<any>=
-    [
-           
-    ];
-    public onMailClicked (mailItem :any)
-    {
-         this.selectedMailItem =mailItem;
+    public router: Router;
+    public mails: Array<any> = [];
+    constructor(mailService: MailService, router: Router) {
+        this.mails = mailService.getMails();
+        this.router = router;
+    }
+    public onMailClicked(mailItem: any) {
+        this.selectedMailItem = mailItem;
         console.log(mailItem.title);
-        
     }
-    constructor (mailService:MailService)
-    {
+    public onSendMailClicked() {
+        this.router.navigate(["EmailCreate"]);
+    }
 
-        //let mailService:MailService = new MailService();   
-        this.mails=mailService.getMails();     
-    }
-   
 }
