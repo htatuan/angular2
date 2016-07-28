@@ -1,10 +1,18 @@
+import {EmailObject} from "./emailObject"
 export class MailService
 {
+    private static emails:Array<EmailObject> =
+    [
+        {to:"thanhtuit27fdsfdf@", subject: "subject 1", message:"Hello a Tu", date:"24/07/2016"},
+        {to:"tuanhaong@", subject: "subject 2",message:"hello Tuan", date:"24/01/2016"}
+    ];
     public getMails()
     {
-       return [
-            {title: "mail 1", sender:"tuanhoang@gmail.com", date:"1/1/1"},
-             {title: "mail 2", sender:"tuanhaong@yahoo.com", date:"1/1/1"}
-        ];
+       return MailService.emails;
     }
+    public sendMail(emailItem:any)
+    {
+        MailService.emails.push(emailItem);
+    }
+
 }

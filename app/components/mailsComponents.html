@@ -15,16 +15,19 @@
                     <table class="table">
                       <thead>
                         <tr>
-                          <th>#</th>
-                          <th>Title</th>
-                          <th>Sender</th>
+                         
+                          <th>Subject</th>
+                          <th>To</th>
+                          <th>Message</th>
                           <th>Date</th>
+                           <th>#</th>
                         </tr>
                       </thead>
                       <tbody>
                          <tr (click)="onMailClicked(mail);" *ngFor="let mail of mails">
-                        <td>{{mail.title}}</td>
-                        <td>{{mail.sender}}</td>
+                        <td>{{mail.subject}}</td>
+                        <td>{{mail.to}}</td>
+                        <td>{{mail.message}}</td>
                         <td>{{mail.date}}</td>
                         <td><a href="/email-detail">Detail</a></td>
                     </tr>

@@ -18,7 +18,7 @@ export class MailsComponent {
         console.log(mailItem.title);
     }
     public onSendMailClicked() {
-        this.router.navigate(["EmailCreate"]);
+        this.router.navigate(["SendMail"]);
     }
 
 }
