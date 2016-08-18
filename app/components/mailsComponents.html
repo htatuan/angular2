@@ -11,7 +11,13 @@
     <div class="clearfix"></div>
   </div>
   <div class="x_content">
-
+ <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <ul *ngFor="let error of errors">
+                        <li style="color:red;">{{error.errorCode}}</li>
+                    </ul>
+                </div>
+            </div>
     <table class="table">
       <thead>
         <tr>

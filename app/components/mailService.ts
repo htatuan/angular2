@@ -3,6 +3,7 @@ import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from "angular2/core";
 import {Http, Headers} from "angular2/http";
+import {EventManager} from "./eventManager"
 @Injectable()
 export class MailService {
     private http: Http;
@@ -19,13 +20,13 @@ export class MailService {
     public getMails() {
         return this.http.get(this.url, { headers: this.headers })
             .toPromise()
-            .then((response: any) => response.json());
+            .then((response: any) => this.handleResponse(response));
     }
 
     public sendMail(emailItem: any) {
         return this.http.post(this.url, JSON.stringify(emailItem), { headers: this.headers })
             .toPromise()
-            .then((response: any) => response.json());
+            .then((response: any) => this.handleResponse(response));
     }
 
     public getMail(id: any) {
@@ -38,14 +39,14 @@ export class MailService {
     public updateEmail(id: any, emailItem: any) {
         var urlDetail = this.url + "/" + id;
         return this.http.put(urlDetail, JSON.stringify(emailItem), { headers: this.headers })
-            .toPromise().then((response: any) => response.json());
+            .toPromise().then((response: any) => this.handleResponse(response));
     }
 
     public deleteEmail(id: any) {
         var urlDelete = this.url + "/" + id;
         return this.http.delete(urlDelete, { headers: this.headers })
             .toPromise()
-            .then((response: any) => response.json());
+            .then((response: any) => this.handleResponse(response));
     }
 
     private handleResponse(response: any) {
@@ -54,11 +55,7 @@ export class MailService {
             return result.data;
         }
         else {
-            var message = "";
-            result.errors.forEach((item: any) => {
-                message += item.message;
-            });
-            alert(message);
+            EventManager.getInstance().publish(result.errors)
         }
     }
 }

@@ -3,7 +3,8 @@ import {Component} from "angular2/core";
 import {MailService} from "./mailService";
 import {Router} from "angular2/router";
 import {EmailObject} from "./emailObject";
-import {Route} from "./routeConst"
+import {Route} from "./routeConst";
+import {EventManager} from "./eventManager"  ;
 @Component({
     templateUrl: "app/components/mailsComponents.html"
 })
@@ -13,13 +14,22 @@ export class MailsComponent {
     public mails: Array<EmailObject> = [];
     public emailDetail: EmailObject;
     public mailService: MailService;
-
+    public errors:any=[];
     constructor(mailService: MailService, router: Router) {
         let self = this;
         self.router = router;
         self.mailService = mailService;
         mailService.getMails().then(function (mails: Array<EmailObject>) {
             self.mails = mails;
+        });
+         EventManager.getInstance().subcribe("mail.getAllMail", function (errors: any) {
+            self.handleError(errors);
+        });
+        EventManager.getInstance().subcribe("mail.deleteEmail", function (errors: any) {
+            self.handleError(errors);
+        });
+        EventManager.getInstance().subcribe("mail.updateMail", function (errors: any) {
+            self.handleError(errors);
         });
     }
 
@@ -46,5 +56,9 @@ export class MailsComponent {
             var index = self.mails.indexOf(removedMail);
             self.mails.splice(index, 1);
         });
+    }
+     private handleError(errors: any) {
+        console.log(errors);
+        this.errors=errors;
     }
 }
